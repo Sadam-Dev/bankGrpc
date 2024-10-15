@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package bank;
+
+option go_package = "bankGrpc/api/proto";
+
+service BankService {
+  rpc Register (RegisterRequest) returns (RegisterResponse);
+  rpc Login (LoginRequest) returns (LoginResponse);
+  rpc MakeTransaction (TransactionRequest) returns (TransactionResponse);
+  rpc GetAllUsers (GetUsersRequest) returns (GetUsersResponse);
+  rpc GetAllTransactions (GetTransactionsRequest) returns (GetTransactionsResponse);
+}
+
+message RegisterRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message RegisterResponse {
+  string message = 1;
+}
+
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string token = 1;
+}
+
+message TransactionRequest {
+  string sender = 1;
+  string receiver = 2;
+  float amount = 3;
+}
+
+message TransactionResponse {
+  string message = 1;
+}
+
+message GetUsersRequest {}
+
+message GetUsersResponse {
+  repeated User users = 1;
+}
+
+message User {
+  string username = 1;
+  float balance = 2;
+}
+
+message GetTransactionsRequest {}
+
+message GetTransactionsResponse {
+  repeated Transaction transactions = 1;
+}
+
+message Transaction {
+  string sender = 1;
+  string receiver = 2;
+  float amount = 3;
+  string timestamp = 4;
+}
