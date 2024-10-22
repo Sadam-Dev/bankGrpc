@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+option go_package = "bankGrpc/proto;";
+
+package bankGrpc;
+
+service BankService {
+  rpc SignUp (SignUpRequest) returns (SignUpResponse);
+  rpc GetAllUsers (Empty) returns (GetAllUsersResponse);
+  rpc CreateTransaction (TransactionRequest) returns (TransactionResponse);
+  rpc GetAllTransactions (Empty) returns (GetAllTransactionsResponse);
+}
+
+message User {
+  uint64 id = 1;
+  string name = 2;
+  string email = 3;
+  string password = 4;
+  float balance = 5;
+}
+
+message Transaction {
+  uint64 id = 1;
+  uint64 from_user_id = 2;
+  uint64 to_user_id = 3;
+  float amount = 4;
+  string timestamp = 5;
+}
+
+message SignUpRequest {
+  string name = 1;
+  string email = 2;
+  string password = 3;
+}
+
+message SignUpResponse {
+  uint64 id = 1;
+  string message = 2;
+}
+
+message TransactionRequest {
+  string from_user_id = 1;
+  string to_user_id = 2;
+  float amount = 3;
+}
+
+message TransactionResponse {
+  uint64 id = 1;
+  string message = 2;
+}
+
+message GetAllUsersResponse {
+  repeated User users = 1;
+}
+
+message GetAllTransactionsResponse {
+  repeated Transaction transactions = 1;
+}
+
+message Empty {}
